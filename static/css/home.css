@@ -1,0 +1,63 @@
+body{
+    background-image: linear-gradient(to right,#9900ff,#2900be);
+}
+.navbar{
+    background-color: #000042;
+}
+.navbar-nav .nav-link,.navbar-brand{
+    color: rgb(212, 212, 212);
+}
+
+.navbar-nav .nav-link.active{
+    color: white;
+    font-weight: 500;
+}
+
+.navbar-nav .nav-link:hover{
+    color: white ;
+    font-size: medium;
+}
+
+
+.table-container{
+    position: relative;
+    /* margin-top: 15%; */
+    height: 58.5vh;
+    overflow-y: auto ;
+    border: 1px solid black;
+}
+
+
+.table{
+    /* color: rgb(129, 56, 207); */
+    border-collapse: separate;
+    border-spacing: 0;
+
+}
+.table th{
+    background-color: #000042;
+    color: white;
+    border-bottom: 1px solid rgb(212, 212, 212);
+    position: sticky;
+    top: 0;
+}
+
+#graph1{
+    /* background-color: rgb(255,255,525); */
+    width: fit-content;
+}
+
+.graph-container{
+    /* background-color: rgba(124, 124, 124,0.85); */
+    background-color: rgba(44, 27, 193, 0.85);
+    /* height: 300vh; */
+    /* margin-top: 15%; */
+    /* position: relative; */
+    height: 58.5vh;
+    width: fit-content;
+}
+
+.container-fluid h2{
+    color: rgb(212, 212, 212);
+    padding: 5vh 0 2.5vh 10vw ;
+}
