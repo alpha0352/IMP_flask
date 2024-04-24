@@ -11,7 +11,7 @@ import json
 
 fig,ax = plt.subplots(figsize = (6,6))
 
-app = Flask(__name__)
+app = application = Flask(__name__)
 app.secret_key = "Alpha352"
 app.config['SQLALCHEMY_DATABASE_URI'] = 'mysql+mysqldb://root:Alpha0352@localhost/invest_portfolio'
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
@@ -185,6 +185,6 @@ def home():
 #     # plt.show()
 
 if __name__== "__main__":
-    app.run(debug=True)
+    application.run(debug=True)
 
 
