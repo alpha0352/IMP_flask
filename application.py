@@ -1,18 +1,17 @@
-# from flask import Flask, request, render_template, session, redirect,url_for,send_file,jsonify
-# from flask_sqlalchemy import SQLAlchemy
-# import pandas as pd
-# from datetime import datetime
-# import matplotlib.pyplot as plt
-# from matplotlib.backends.backend_agg import FigureCanvasAgg as FigureCanvas
-# import io
-# import plotly.express as px
-# from plotly import utils
-# import json
+import pandas as pd
+import matplotlib.pyplot as plt
+import plotly.express as px
+from datetime import datetime
+import io
+import json
+
+from flask import Flask, request, render_template, session, redirect,url_for,send_file,jsonify
+from flask_sqlalchemy import SQLAlchemy
+from matplotlib.backends.backend_agg import FigureCanvasAgg as FigureCanvas
+from plotly import utils
 
 # fig,ax = plt.subplots(figsize = (6,6))
-
-from flask import Flask
-application = Flask(__name__)
+application = app = Flask(__name__)
 
 # app.secret_key = "Alpha352"
 # app.config['SQLALCHEMY_DATABASE_URI'] = 'mysql+mysqldb://root:Alpha0352@localhost/invest_portfolio'
@@ -50,66 +49,66 @@ application = Flask(__name__)
 #          self.Credit = credit
 #          self.Balance = balance
 
-@application.route('/',methods=(["GET"]))
-def home():
-    return 'hello world'
+# @application.route('/',methods=(["GET"]))
+# def home():
+#     return 'hello world'
 
-# @app.route('/',methods=(["GET"]))
-# def home_page():
-#     # TData = Transactions()
-#     # allData = TData.query.all()
+@app.route('/',methods=(["GET"]))
+def home_page():
+    # TData = Transactions()
+    # allData = TData.query.all()
 
-#     portfolio = []
-#     current_holding_sums = {}
-#     # data = pd.read_sql_table('transactions', db.get_engine().connect())
-#     data = pd.read_csv('./data/processed_data.csv')
-#     # data = pd.DataFrame([{
-#     #     'TDate': txn.Tdate,
-#     #     'Scrip': txn.Scrip,
-#     #     'volume': txn.Volume,
-#     #     'debit': txn.Debit,
-#     #     'credit': txn.Credit
-#     # } for txn in allData])
+    portfolio = []
+    current_holding_sums = {}
+    # data = pd.read_sql_table('transactions', db.get_engine().connect())
+    data = pd.read_csv('./data/processed_data.csv')
+    # data = pd.DataFrame([{
+    #     'TDate': txn.Tdate,
+    #     'Scrip': txn.Scrip,
+    #     'volume': txn.Volume,
+    #     'debit': txn.Debit,
+    #     'credit': txn.Credit
+    # } for txn in allData])
 
-#     data['volume'] = data['volume'].astype(int)
-#     data['TDate'] = pd.to_datetime(data['TDate'],dayfirst=True)
-#     data['debit'] = data['debit'].astype(float)
-#     data['credit'] = data['credit'].astype(float)
+    data['volume'] = data['volume'].astype(int)
+    data['TDate'] = pd.to_datetime(data['TDate'],dayfirst=True)
+    data['debit'] = data['debit'].astype(float)
+    data['credit'] = data['credit'].astype(float)
 
-#     for scrip_name in data['Scrip'].unique():
-#         filtered_data = data[(data['TDate'].dt.year >= 2022) & (data['Scrip'] == scrip_name)]
-#         buy_volume = filtered_data.loc[filtered_data['debit'] != 0, 'volume'].sum()
-#         sell_volume = filtered_data.loc[filtered_data['credit'] != 0, 'volume'].sum()
-#         # bonus_volume = filtered_bondiv['Bonus Share'].sum()
-#         # dividend = filtered_bondiv['Dividend'].sum()
-#         # Current_Holding = buy_volume - sell_volume + bonus_volume
-#         current_holding = buy_volume - sell_volume
+    for scrip_name in data['Scrip'].unique():
+        filtered_data = data[(data['TDate'].dt.year >= 2022) & (data['Scrip'] == scrip_name)]
+        buy_volume = filtered_data.loc[filtered_data['debit'] != 0, 'volume'].sum()
+        sell_volume = filtered_data.loc[filtered_data['credit'] != 0, 'volume'].sum()
+        # bonus_volume = filtered_bondiv['Bonus Share'].sum()
+        # dividend = filtered_bondiv['Dividend'].sum()
+        # Current_Holding = buy_volume - sell_volume + bonus_volume
+        current_holding = buy_volume - sell_volume
 
-#         if current_holding > 0:
-#             buy_avg= (filtered_data['debit'].sum() - filtered_data['credit'].sum() ) / (current_holding)
-#             Buy_avg_divin= (filtered_data['debit'].sum() - filtered_data['credit'].sum()) / (current_holding)
-#             portfolio.append({'scrip':scrip_name,
-#                               'buy_vol':buy_volume,
-#                               'sell_vol':sell_volume,
-#                               'curr_vol':round(current_holding,2),
-#                               'buy_avg':round(buy_avg,2)})
-#             current_holding_sums[scrip_name] = current_holding
+        if current_holding > 0:
+            buy_avg= (filtered_data['debit'].sum() - filtered_data['credit'].sum() ) / (current_holding)
+            Buy_avg_divin= (filtered_data['debit'].sum() - filtered_data['credit'].sum()) / (current_holding)
+            portfolio.append({'scrip':scrip_name,
+                              'buy_vol':buy_volume,
+                              'sell_vol':sell_volume,
+                              'curr_vol':round(current_holding,2),
+                              'buy_avg':round(buy_avg,2)})
+            current_holding_sums[scrip_name] = current_holding
 
-#         #plotting pie chart
-#         labels = list(current_holding_sums.keys())
-#         values = list(current_holding_sums.values())
-#         fig = px.pie(data, values=values, names=labels)
-#         fig.update_layout(
-#                 width = 550,
-#                 height = 455,
-#                 plot_bgcolor = ' rgba(255,255,255,0.85)',
-#                 paper_bgcolor = 'rgba(255,255,255,0.85)',
-#                 legend = dict(bgcolor = 'white'),
-#                 font_color= '#333333'
-#                 )
-#         plotly_plot = json.dumps(fig, cls=utils.PlotlyJSONEncoder)
-#         # print(portfolio)
-#     return render_template('home.html',portfolio=portfolio,plotly_plot=plotly_plot)
+        #plotting pie chart
+        labels = list(current_holding_sums.keys())
+        values = list(current_holding_sums.values())
+        fig = px.pie(data, values=values, names=labels)
+        fig.update_layout(
+                width = 550,
+                height = 455,
+                plot_bgcolor = ' rgba(255,255,255,0.85)',
+                paper_bgcolor = 'rgba(255,255,255,0.85)',
+                legend = dict(bgcolor = 'white'),
+                font_color= '#333333'
+                )
+        plotly_plot = json.dumps(fig, cls=utils.PlotlyJSONEncoder)
+        # print(portfolio)
+    return render_template('home.html',portfolio=portfolio,plotly_plot=plotly_plot)
 
 # @app.route('/transactions',methods=(["GET"]))
 # def transactions_page():
