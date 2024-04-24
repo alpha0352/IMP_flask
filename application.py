@@ -16,53 +16,54 @@ app.secret_key = "Alpha352"
 app.config['SQLALCHEMY_DATABASE_URI'] = 'mysql+mysqldb://root:Alpha0352@localhost/invest_portfolio'
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 
-db = SQLAlchemy(app)
-class Transactions(db.Model):
+# db = SQLAlchemy(app)
+# class Transactions(db.Model):
        
-    Tid = db.Column(db.String(15),primary_key = True)
-    Tdate = db.Column(db.Date)
-    Scrip = db.Column(db.String(10),primary_key = True)
-    Volume = db.Column(db.Integer)
-    Rate = db.Column(db.Double)
-    Debit = db.Column(db.Double)
-    Credit = db.Column(db.Double)
-    Balance = db.Column(db.Double)
+#     Tid = db.Column(db.String(15),primary_key = True)
+#     Tdate = db.Column(db.Date)
+#     Scrip = db.Column(db.String(10),primary_key = True)
+#     Volume = db.Column(db.Integer)
+#     Rate = db.Column(db.Double)
+#     Debit = db.Column(db.Double)
+#     Credit = db.Column(db.Double)
+#     Balance = db.Column(db.Double)
 
-    def __init__(self,tid,tdate,scrip,volume,rate,debit,credit,balance):
-         self.Tid = tid
-         self.Tdate = tdate
-         self.Scrip = scrip
-         self.Volume = volume
-         self.Rate = rate
-         self.Debit = debit
-         self.Credit = credit
-         self.Balance = balance
+#     def __init__(self,tid,tdate,scrip,volume,rate,debit,credit,balance):
+#          self.Tid = tid
+#          self.Tdate = tdate
+#          self.Scrip = scrip
+#          self.Volume = volume
+#          self.Rate = rate
+#          self.Debit = debit
+#          self.Credit = credit
+#          self.Balance = balance
      
-    def __init__(self, tid=None, tdate=None, scrip=None, volume=None, rate=None, debit=None, credit=None, balance=None):
-         self.Tid = tid
-         self.Tdate = tdate
-         self.Scrip = scrip
-         self.Volume = volume
-         self.Rate = rate
-         self.Debit = debit
-         self.Credit = credit
-         self.Balance = balance
+#     def __init__(self, tid=None, tdate=None, scrip=None, volume=None, rate=None, debit=None, credit=None, balance=None):
+#          self.Tid = tid
+#          self.Tdate = tdate
+#          self.Scrip = scrip
+#          self.Volume = volume
+#          self.Rate = rate
+#          self.Debit = debit
+#          self.Credit = credit
+#          self.Balance = balance
 
 @app.route('/',methods=(["GET"]))
 def home_page():
-    TData = Transactions()
-    allData = TData.query.all()
+    # TData = Transactions()
+    # allData = TData.query.all()
+
     portfolio = []
     current_holding_sums = {}
     # data = pd.read_sql_table('transactions', db.get_engine().connect())
-    
-    data = pd.DataFrame([{
-        'TDate': txn.Tdate,
-        'Scrip': txn.Scrip,
-        'volume': txn.Volume,
-        'debit': txn.Debit,
-        'credit': txn.Credit
-    } for txn in allData])
+    data = pd.read_csv('./data/processed_data.csv')
+    # data = pd.DataFrame([{
+    #     'TDate': txn.Tdate,
+    #     'Scrip': txn.Scrip,
+    #     'volume': txn.Volume,
+    #     'debit': txn.Debit,
+    #     'credit': txn.Credit
+    # } for txn in allData])
 
     data['volume'] = data['volume'].astype(int)
     data['TDate'] = pd.to_datetime(data['TDate'],dayfirst=True)
