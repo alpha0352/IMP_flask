@@ -11,10 +11,10 @@ import json
 
 fig,ax = plt.subplots(figsize = (6,6))
 
-app = application = Flask(__name__)
-app.secret_key = "Alpha352"
-app.config['SQLALCHEMY_DATABASE_URI'] = 'mysql+mysqldb://root:Alpha0352@localhost/invest_portfolio'
-app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
+application = Flask(__name__)
+# app.secret_key = "Alpha352"
+# app.config['SQLALCHEMY_DATABASE_URI'] = 'mysql+mysqldb://root:Alpha0352@localhost/invest_portfolio'
+# app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 
 # db = SQLAlchemy(app)
 # class Transactions(db.Model):
@@ -48,7 +48,7 @@ app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 #          self.Credit = credit
 #          self.Balance = balance
 
-@app.route('/',methods=(["GET"]))
+@application.route('/',methods=(["GET"]))
 def home():
     return "hello world"
 # @app.route('/',methods=(["GET"]))
