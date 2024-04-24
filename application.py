@@ -1,17 +1,19 @@
-from flask import Flask, request, render_template, session, redirect,url_for,send_file,jsonify
-from flask_sqlalchemy import SQLAlchemy
-import pandas as pd
-from datetime import datetime
-import matplotlib.pyplot as plt
-from matplotlib.backends.backend_agg import FigureCanvasAgg as FigureCanvas
-import io
-import plotly.express as px
-from plotly import utils
-import json
+# from flask import Flask, request, render_template, session, redirect,url_for,send_file,jsonify
+# from flask_sqlalchemy import SQLAlchemy
+# import pandas as pd
+# from datetime import datetime
+# import matplotlib.pyplot as plt
+# from matplotlib.backends.backend_agg import FigureCanvasAgg as FigureCanvas
+# import io
+# import plotly.express as px
+# from plotly import utils
+# import json
 
-fig,ax = plt.subplots(figsize = (6,6))
+# fig,ax = plt.subplots(figsize = (6,6))
 
+from flask import Flask
 application = Flask(__name__)
+
 # app.secret_key = "Alpha352"
 # app.config['SQLALCHEMY_DATABASE_URI'] = 'mysql+mysqldb://root:Alpha0352@localhost/invest_portfolio'
 # app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
@@ -50,7 +52,8 @@ application = Flask(__name__)
 
 @application.route('/',methods=(["GET"]))
 def home():
-    return "hello world"
+    return 'hello world'
+
 # @app.route('/',methods=(["GET"]))
 # def home_page():
 #     # TData = Transactions()
